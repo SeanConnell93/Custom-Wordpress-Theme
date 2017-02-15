@@ -1,0 +1,515 @@
+
+//main colors
+$bg-color: #ffc545;
+$dark-blue: #4a5768; 
+$white: #fff;
+$shadow-color: #34404f;
+
+//secondary colors
+$light-blue: #47d2e9;
+$green: #53df83;
+$red: #fe8a71;
+
+//fonts
+
+@font-face {
+    font-family: "Bakersfield";
+    src: url(../fonts/BakersfieldLight.woff) format("woff");
+    unicode-range: U+0040-007A, U+0020-0039, U+00E1, U+00A9;
+}
+
+
+@font-face {
+    font-family: "icons";
+    src: url("../fonts/icomoon.woff") format("woff"); 
+}
+
+@font-face {
+    font-family: "Bakersfield_B";
+    src: url(../fonts/BakersfieldBold.woff);
+    unicode-range: U+0041-007A, U+0020-0039;
+}
+
+$title-font: "Bakersfield_B", Tahoma, Helvetica, sans-serif;
+$p-font: "Bakersfield", Verdana, Helvetica, sans-serif;
+
+@mixin font-reset{
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+}
+
+
+// chrome page  scroll bar
+::-webkit-scrollbar {
+    width: 0.7em;
+    background-color: $shadow-color;
+}
+::-webkit-scrollbar-track {
+    border-radius: 1em;
+    background-color: $shadow-color;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 1em;
+    background-color: #fff;
+}
+
+::selection {
+    background-color: $shadow-color;
+    color: $white;
+}
+
+
+
+//mixins 
+
+@mixin transition($speed) {
+    -webkit-transition: $speed;
+    -moz-transition: $speed;
+    -ms-transition: $speed;
+    -o-transition: $speed;
+    transition: $speed;
+}
+
+@mixin transition2($speed1, $speed2) {
+    -webkit-transition: $speed1, $speed2;
+    -moz-transition: $speed1, $speed2;
+    -ms-transition: $speed1, $speed2;
+    -o-transition: $speed1, $speed2;
+    transition: $speed1, $speed2;
+}
+
+
+@mixin transform($this) {
+    -webkit-transform: $this;
+    -moz-transform: $this;
+    -ms-transform: $this;
+    -o-transform: $this;
+    transform: $this;
+}
+
+@mixin transform-origin($origin) {
+    -webkit-transform-origin: $origin;
+    -moz-transform-origin: $origin;
+    -ms-transform-origin: $origin;
+    -o-transform-origin: $origin;
+    transform-origin: $origin;
+}
+
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    -o-border-radius: $radius;
+    border-radius: $radius;
+}
+
+@mixin box-sizing {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+@mixin center-screen {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    @include transform(translate(-50%, -50%));
+}
+
+@mixin HardwareAcceleration {
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    @include box-sizing;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.HardwareAcceleration {
+    @include HardwareAcceleration;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    @include transition(height 99999s);
+    background-color: $bg-color;
+    /* IOS fixes */ 
+    -webkit-overflow-scrolling: touch;
+}
+
+.error-img {
+    margin: 5% auto 0 auto;
+    width: 10%;
+    display: block;
+}
+
+.error {
+    color: $white;
+    font-size: 3rem;
+    text-align: center;
+    padding: 2em 5%;
+    font-family: $p-font;
+}
+
+.return {
+    text-align: center;
+}
+
+.return a {
+    color: $shadow-color;
+    text-decoration: none;
+    font-family: $title-font;
+    background-color: $bg-color;
+    padding: 1em 2em;
+    border-radius: 0.25em;
+    font-size: 1.25rem;
+    @include transition(all 0.25s ease);
+    
+    
+    &:hover {
+        background-color: $shadow-color;
+        color: $bg-color;
+    }
+}
+
+.error-content {
+    position: relative;
+    z-index: 1;
+}
+
+.bg-error-img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    opacity: 0.2;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+// IE
+
+.IE {
+    width: 100%;
+    padding: 0.5em;
+    color: $white;
+    background-color: $dark-blue;
+    text-align: center;
+    font-size: 1.2rem;
+    font-family: $p-font;
+    
+    a {
+        color: $white;
+    }
+}
+
+   
+
+
+// Universal classes 
+
+
+.panel {
+    width: 100%;
+    min-height: 100%;
+    overflow: hidden;
+    position: relative;
+    background-color: $dark-blue;
+    margin-bottom: 7.5%;
+    -webkit-box-shadow: 0em 0em 1em 0.01em $shadow-color;
+    -moz-box-shadow: 0em 0em 1em 0.01em $shadow-color;
+    box-shadow: 0em 0em 1em 0.01em $shadow-color;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+// footer section ------------------------------------------------------------------
+
+
+.footer {
+    width: 100%;
+    height: auto;
+    background-color: $shadow-color;
+    position: relative;
+    padding: 5em;
+    
+    .back-top-wrapper {
+        text-align: center;
+        width: 100%;
+        position: absolute;
+        top: -2rem;
+        left: 0;
+    }
+    
+    .back-top {
+        background-color: $bg-color;
+        width: 4rem;
+        border-radius: 50%;
+        cursor: pointer;
+        padding: 1em;
+        box-shadow: 0em 1em 1.5em rgba($shadow-color, 1);
+        -webkit-tap-highlight-color: rgba($bg-color, 0.5);
+        @include transform(scale(1));
+        @include transition(all 0.5s cubic-bezier(.87,-.41,.19,1.44));
+    }
+    
+    .back-top-hide {
+        @include transform(scale(0));
+    }
+    
+    
+    .footer-img {
+        display: block;
+        margin: 5% auto;
+        width: 10%;
+    }
+    
+    p {
+        color: $white;
+        font-family: $p-font;
+        font-size: 1.5rem;
+        text-align: center;
+        margin: 3.1% 0;
+        
+        
+        a {
+            color: $white;
+            text-decoration: none;
+            -webkit-tap-highlight-color: rgba($shadow-color, 0.5);
+            
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    
+    .email:before {
+        content: "\e945 ";
+        font-family: "icons";
+        color: $white;
+        speak: none;
+    }
+    
+    .linkedin:before {
+        content: "\eac9 ";
+        font-family: "icons";
+        color: $white;
+        speak: none;
+    }
+    
+    .copy {
+        font-size: 1rem;
+        color: #aaa;
+    }
+    
+    
+}
+
+
+// tablet ---------------------------------------------------------------------------------------
+
+@media only screen 
+    and (max-width: 1030px), (max-width: 1000px) and (orientation: portrait) {
+        
+    
+    .error-img {
+        width: 20%;
+        margin: 15% auto 2.5% auto;
+    }
+    
+    
+    .error {
+        font-size: 2.5rem;
+    }
+        
+    .footer {
+            
+            .footer-img {
+                width: 25%;
+            }
+            
+            p {
+                margin: 10% auto;
+            }
+            
+        }
+
+}
+
+
+// landscape ------------------------------------
+
+@media only screen and (max-width: 1030px) and (orientation: landscape) {
+    
+    .error-img {
+        width: 15%;
+        margin: 7.5% auto 2.5% auto;
+    }
+    
+    
+    .error {
+        font-size: 2.5rem;
+    }
+
+    .footer {
+            
+            .footer-img {
+                width: 15%;
+            }
+            
+            p {
+                margin: 7.5% auto;
+            }
+            
+        }
+        
+
+}
+
+
+//Phone-------------------------------------------------------------
+
+@media screen and (max-width: 500px) {
+        
+    body {
+        height: auto;
+    }
+    
+    .error-img {
+        width: 25%;
+        margin: 20% auto 2% auto;
+    }
+    
+    
+    .error {
+        font-size: 1.5rem;
+    }
+    
+    
+    .return a {
+        font-size: 1rem;
+    }
+    
+    .footer {
+        padding: 2em;
+        margin-top: 10%;
+    
+        .back-top-wrapper {
+            top: -1.5rem;
+        }
+        
+        .back-top {
+            width: 3rem;
+            padding: 0.5em;
+        }
+
+
+        .footer-img {
+            margin: 7.5% auto;
+            width: 25%;
+        }
+
+        p, p a {
+            width: 100%;
+            font-size: 1rem !important;
+            margin: 10% 0!important;
+        }
+
+        .copy {
+            font-size: 0.8rem !important;
+        }
+        
+    }
+    
+    
+    
+}
+
+
+// smaller smart phones
+
+@media screen and (min-width: 280px) and (max-width: 330px) {
+ 
+    .footer {
+        margin-top: 15%;
+    }
+    
+}
+    
+
+
+@media screen and (min-width: 2000px) {
+    
+    :root {
+        font-size: 24px;
+    }
+    
+    
+    .error-img {
+        margin: 10% auto 2% auto;
+    }
+}
+
+
+@media screen and (min-height: 2000px) and (min-resolution: 170dpi) and (orientation: portrait) {
+    
+    :root {
+        font-size: 30px;
+    }
+    
+    
+    .error-img {
+        width: 20%;
+        margin: 10% auto 2% auto;
+    }
+    
+    .footer p {
+        margin: 2em 0;
+    }
+}
+
+@media screen and (min-width: 3700px) {
+    
+    :root {
+        font-size: 35px;
+    }
+    
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

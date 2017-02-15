@@ -1,0 +1,1238 @@
+//main colors
+$bg-color: #ffc545;
+$dark-blue: #4a5768; 
+$white: #fff;
+$shadow-color: #34404f;
+
+//secondary colors
+$light-blue: #47d2e9;
+$green: #53df83;
+$red: #fe8a71;
+
+//fonts
+@font-face {
+    font-family: "BigJohn";
+    src: url(../fonts/BIGJOHN.woff);
+    unicode-range: U+0041-007A, U+002C;
+}
+
+@font-face {
+    font-family: "Bakersfield";
+    src: url(../fonts/BakersfieldLight.woff) format("woff");
+}
+
+@font-face {
+    font-family: "Bakersfield_B";
+    src: url(../fonts/BakersfieldBold.woff);
+}
+
+@font-face {
+    font-family: "icons";
+    src: url("../fonts/icomoon.woff") format("woff"); 
+}
+
+@font-face {
+    font-family: "arrow";
+    src: url("../fonts/arrow.woff") format("woff"); 
+}
+
+
+$heading-font: "BigJohn", Helvetica, "Arial Black", Gadget, sans-serif;
+$title-font: "Bakersfield_B", Tahoma, Helvetica, sans-serif;
+$p-font: "Bakersfield", Verdana, Helvetica, sans-serif;
+
+@mixin font-reset{
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+}
+
+
+// chrome page  scroll bar
+::-webkit-scrollbar {
+    width: 0.7em;
+    background-color: $shadow-color;
+}
+::-webkit-scrollbar-track {
+    border-radius: 1em;
+    background-color: $shadow-color;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 1em;
+    background-color: #fff;
+}
+
+::selection {
+    background-color: $shadow-color;
+    color: $white;
+}
+
+
+
+//mixins 
+
+@mixin transition($speed) {
+    -webkit-transition: $speed;
+    -moz-transition: $speed;
+    -ms-transition: $speed;
+    -o-transition: $speed;
+    transition: $speed;
+}
+
+@mixin transition2($speed1, $speed2) {
+    -webkit-transition: $speed1, $speed2;
+    -moz-transition: $speed1, $speed2;
+    -ms-transition: $speed1, $speed2;
+    -o-transition: $speed1, $speed2;
+    transition: $speed1, $speed2;
+}
+
+
+@mixin transform($this) {
+    -webkit-transform: $this;
+    -moz-transform: $this;
+    -ms-transform: $this;
+    -o-transform: $this;
+    transform: $this;
+}
+
+@mixin transform2($this, $this2) {
+    -webkit-transform: $this, $this2;
+    -moz-transform: $this, $this2;
+    -ms-transform: $this, $this2;
+    -o-transform: $this, $this2;
+    transform: $this, $this2;
+}
+
+@mixin transform-origin($origin) {
+    -webkit-transform-origin: $origin;
+    -moz-transform-origin: $origin;
+    -ms-transform-origin: $origin;
+    -o-transform-origin: $origin;
+    transform-origin: $origin;
+}
+
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    -o-border-radius: $radius;
+    border-radius: $radius;
+}
+
+@mixin box-sizing {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+@mixin center-screen {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    @include transform(translate(-50%, -50%));
+}
+
+@mixin HardwareAcceleration {
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+html {
+    height: 100vh;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    @include box-sizing;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.HardwareAcceleration {
+    @include HardwareAcceleration;
+}
+
+body {
+    height: 100vh;
+    background-color: $bg-color;
+    /* IOS fixes */ 
+    -webkit-overflow-scrolling: touch;
+}
+
+.body-overflow-hide {
+    overflow: hidden;
+}
+
+// IE
+
+.IE {
+    width: 100%;
+    padding: 0.5em;
+    color: $white;
+    background-color: $dark-blue;
+    text-align: center;
+    font-size: 1.2rem;
+    font-family: $p-font;
+    
+    a {
+        color: $white;
+    }
+}
+
+   
+// nav button
+
+.nav-btn {
+    cursor: pointer;
+    width: 4.5rem;
+    height: 4.5rem;
+    position: fixed;
+    z-index: 1000;
+    top: 5%;
+    left: 2.5%;
+    border-radius: 50%;
+    background-color: $shadow-color;
+    padding: 1.5em 1em;
+    @include transform(scale(1));
+    @include transition2(opacity ease 0.2s, transform 0.5s cubic-bezier(.87,-.41,.19,1.44));
+    -webkit-tap-highlight-color: rgba($shadow-color, 0.5);
+    box-shadow: 0em 0.2em 0.7em rgba(0,0,0, 0.2);
+    
+    &:hover .top {
+        width: 60%;
+    }
+    
+    &:hover .mid {
+        width: 80%;
+    }
+    .bars {
+        width: 100%;
+        height: 0.15rem;
+        position: relative;
+        background-color: $white;
+        @include transition(all ease-out 0.3s);
+        @include transform-origin(center);
+    }
+    .top {
+        top: 0rem;
+        //background-color: red;
+    }
+    .mid {
+        top: 0.6rem;
+    }
+    .bottom {
+        top: 1.2rem;
+    }
+}
+
+
+// when nav is clicked
+.clicked_top {
+    @include transform(rotate(225deg));
+    top: 0.9rem !important;
+    width: 100% !important;
+}
+.clicked_mid {
+    @include transform(rotate(225deg));
+    top: 0.6rem;
+    opacity: 0;
+}
+.clicked_bottom {
+    @include transform(rotate(135deg));
+    top: 0.6rem !important;
+}
+
+
+// top section
+
+.nav {
+    width: 100%;
+    height: 100%;
+    background-color: $shadow-color;
+    z-index: 999;
+    list-style-type: none;
+    color: $white;
+    @include transition(transform 0.6s ease-in-out);
+    @include transform(translateY(0%));
+    position: fixed;
+    top: 0;
+    overflow: scroll;
+}
+
+
+// chrome page  scroll bar
+.nav::-webkit-scrollbar {
+    width: 0;
+}
+
+.hide {
+    @include transform(translateY(-110%));
+}
+
+.nav ul {
+    position: relative;
+    padding: 5rem 0;
+}
+.nav ul a {
+    text-decoration: none;
+    color: $white;
+    -webkit-tap-highlight-color: rgba($shadow-color, 0.5);
+}
+
+.nav ul img {
+    width: 8rem;
+    cursor: auto;
+    margin: 0 auto 2% auto;
+    display: block;
+    @include transition(opacity 0.5s ease-out 0.5s);
+}
+
+.nav ul li, .nav ul li a {
+    text-align: center;
+    cursor: pointer;
+    display: table;
+    margin: 1.5% auto;
+    color: $white;
+    @include transition2(opacity 0.5s ease-out 0.5s, color 0.3s ease);
+    padding: 1%;
+    font-family: $p-font;
+    font-size: 4rem;
+    letter-spacing: 0.1em;
+    position: relative;
+    -webkit-tap-highlight-color: rgba($shadow-color, 0.5);
+    word-break: keep-all;
+    
+    
+    &:hover {
+        color: $bg-color;
+    }
+}
+
+.nav ul li a {
+    padding: 0 1%;
+    margin: 0 auto;
+}
+
+
+.opacity-out {
+    opacity: 0;
+}
+
+
+// Universal classes 
+
+
+.panel {
+    width: 100%;
+    min-height: 100%;
+    overflow: hidden;
+    position: relative;
+    background-color: $dark-blue;
+    margin-bottom: 7.5%;
+    -webkit-box-shadow: 0em 0.5em 1em rgba($shadow-color, 0.5);
+    -moz-box-shadow: 0em 0.5em 1em rgba($shadow-color, 0.5);
+    box-shadow: 0em 0.5em 1em rgba($shadow-color, 0.5);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.btn-down {
+    position: absolute;
+    left: 7%;
+    bottom: 5%;
+    color: $bg-color;
+    padding: 0.75em 1.25em;
+    font-family: $heading-font;
+    z-index: 10;
+    cursor: pointer;
+    @include transition(all .25s ease);
+    box-shadow: 0em 0.25em 0.5em $shadow-color;
+    border-radius: 0.25em;
+    
+    &:hover {
+        box-shadow: 0.2em 0.6em 1em $shadow-color;
+        background-color: $bg-color;
+        color: $shadow-color;
+    }
+}
+
+
+
+
+// section 1
+
+.portrait {
+    height: 100%;
+    width: 40%;
+    float: right;
+    position: relative;
+    
+    img {
+        pointer-events: none;
+        width: 75%;
+        position: absolute;
+        bottom: 5%;
+        right: 5%;
+    }
+}
+
+.intro {
+    height: 90%;
+    width: 60%;
+    float: left;
+    padding-top: 10%;
+    padding-left: 7.5%;
+    
+    
+    .intro-heading {
+        color: $bg-color;
+        font-family: $heading-font;
+        font-size: 3rem;
+        margin-bottom: 2rem;
+    }
+    
+    .intro-description {
+        color: $white;
+        font-family: $p-font;
+        font-size: 1.7rem;
+        
+        
+        * {
+            color: $white;
+            font-family: $p-font;
+            font-size: 1.7rem;
+            display: inline;
+        }
+        
+        
+        span {
+            font-style: italic;
+            vertical-align: super;
+            font-size: 1rem;
+        }
+    }
+    
+}
+
+@media screen and (max-width: 39cm) {
+    
+    .nav-btn {
+        @include transform(scale(0.8));
+        left: 1.5%;
+    }
+    
+    .intro {
+        padding-top: 12.5%;
+        
+         .intro-heading {
+            font-size: 2.5rem;
+        }
+        
+        .intro-description {
+            font-size: 1.4rem;
+            
+            *{
+                font-size: 1.4rem;
+            }
+        }   
+    }
+}
+
+
+// section 2
+
+#skillSect{
+    min-height: 100%;
+    height: auto;
+    width: 100%;
+    overflow: hidden;
+}
+
+
+.skills {
+    @include center-screen;
+    z-index: 1;
+    width: 100%;
+
+    svg {
+        max-width: 50%;
+        margin: 0 auto;
+        display: block;
+        overflow: visible;
+        
+        .items g {
+            @include transform-origin(center);
+            @include transition2(transform cubic-bezier(0.740, -0.060, 0, 1.640) 1s, opacity cubic-bezier(0.740, -0.060, 0, 1.640) 1s);
+        }
+    }
+}
+
+#pc g g path {
+    @include transition2(transform cubic-bezier(0.740, -0.060, 0, 1.640) 1s, opacity cubic-bezier(0.740, -0.060, 0, 1.640) 1s);
+    @include transform-origin(left bottom);
+}
+
+.scale-word {
+    opacity: 0;
+    @include transform(scale(0));
+}
+
+.scale {
+    opacity: 0;
+    @include transform(scale(0));
+}
+
+
+.background-cover {
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.4;
+}
+
+
+
+// project area --------------------------------------------------------------------------
+
+
+.project {
+    width: 100%;
+    position: relative;
+    margin-bottom: 7.5%;
+    margin-top: 0;
+}
+
+.work {
+    width: 90%;
+    padding: 2% 15% 5% 15%;
+    margin: 0 auto;
+    background-color: $white;
+    box-shadow: 0.1em 0.5em 1em rgba($shadow-color, 0.5);
+    
+    .work-item {
+        margin-top: 15%;
+        opacity: 0;
+        @include transition2(opacity .5s ease, margin-top .7s ease-out);
+        position: relative;
+        padding-bottom: 5%;
+        border-bottom: 0.1em solid rgba($shadow-color, 0.25);
+        
+        &:nth-of-type(1) {
+            margin-top: 10%;
+        }
+        
+        &:last-of-type {
+            border-bottom: none;
+        }
+    }
+    
+    .slide-in-work-item {
+        margin-top: 5%;
+        opacity: 1;
+        
+        &:nth-of-type(1) {
+            margin-top: 0%;
+        }
+    }
+    
+    
+    img {
+        display: block;
+        margin: 5% auto;
+        box-shadow: 0em .5em 1em rgba($shadow-color, 0.75);
+        max-width: 75%;
+        height: auto !important;
+    }
+    
+    .work-heading {
+        color: $shadow-color;
+        font-family: $title-font;
+        font-size: 2.5rem;
+        margin: 5% 0 2% 0;
+    }
+    
+    .work-description {
+        color: $shadow-color;
+        font-family: $p-font;
+        font-size: 1.5rem;
+        
+        * {
+            font-size: 1.5rem;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            padding: 0.7em 0;
+        }
+        
+        hr {
+            background-color: $shadow-color;
+            margin: 2% 0;
+        }
+    }
+    
+    .work-link {
+        text-align: center;
+        margin: 5% 0 0 0;
+        
+        a {
+            display: inline-block;
+            background-color: $bg-color;
+            font-family: $title-font;
+            color: $shadow-color;
+            padding: 1em 2em;
+            font-size: 1.15rem;
+            text-decoration: none;
+            border-radius: 0.25em;
+            box-shadow: 0em .2em .5em rgba($shadow-color, 0.5);
+            @include transition(all 0.25s ease);
+            -webkit-tap-highlight-color: rgba($shadow-color, 0.5);
+            
+            &:hover {
+                background-color: $shadow-color;
+                color: $bg-color;
+            }
+            
+            &:active {
+                box-shadow: 0em 0em 0em rgba($shadow-color, 0.5);
+            }
+        }
+    }  
+}
+
+.page-work {
+    width: 85%;
+    margin: 5% auto;
+    padding: 2% 15%;
+}
+
+.back-page a {
+    font-size: 1.5rem;
+    color: $shadow-color;
+    text-decoration: none;
+    font-family: $p-font;
+    @include transition(color 0.5s ease);
+    
+    &:before {
+        font-family: "arrow";
+        content: "\e900";
+        font-weight: bolder;
+    }
+    
+    &:hover {
+        color: $bg-color;
+    }
+}
+
+@media screen and (max-width: 35cm) {
+    
+    .work {
+         .work-heading {
+            font-size: 1.5rem;
+        }
+        .work-description {
+            font-size: 1.2rem;
+            
+            * {
+                font-size: 1.2rem;
+            }
+        }
+        
+        .work-link a {
+            font-size: 1rem;
+        }
+    }
+    
+    .page-work {
+        margin: 5% auto;
+    }
+}
+
+// footer section ------------------------------------------------------------------
+
+
+.footer {
+    width: 100%;
+    height: auto;
+    background-color: $shadow-color;
+    position: relative;
+    padding: 5em;
+    
+    .back-top-wrapper {
+        text-align: center;
+        width: 100%;
+        position: absolute;
+        top: -2rem;
+        left: 0;
+    }
+    
+    .back-top {
+        background-color: $bg-color;
+        width: 4rem;
+        border-radius: 50%;
+        cursor: pointer;
+        padding: 1em;
+        box-shadow: 0em 1em 1.5em rgba($shadow-color, 1);
+        -webkit-tap-highlight-color: rgba($bg-color, 0.5);
+        @include transform(scale(1));
+        @include transition(all 0.5s cubic-bezier(.87,-.41,.19,1.44));
+    }
+    
+    .back-top-hide {
+        @include transform(scale(0));
+    }
+    
+    
+    .footer-img {
+        display: block;
+        margin: 5% auto;
+        width: 10%;
+    }
+    
+    p {
+        color: $white;
+        font-family: $p-font;
+        font-size: 1.5rem;
+        text-align: center;
+        margin: 3.1% 0;
+        
+        
+        a {
+            color: $white;
+            text-decoration: none;
+            -webkit-tap-highlight-color: rgba($shadow-color, 0.5);
+            
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    
+    .email:before {
+        content: "\e945 ";
+        font-family: "icons";
+        color: $white;
+        speak: none;
+    }
+    
+    .linkedin:before {
+        content: "\eac9 ";
+        font-family: "icons";
+        color: $white;
+        speak: none;
+    }
+    
+    .cv a {
+        font-size: 1.25rem;
+    }
+    
+    .copy {
+        font-size: 1rem;
+        color: #aaa;
+    }
+    
+    
+}
+
+        
+        
+        
+
+
+// tablet ---------------------------------------------------------------------------------------
+
+@media only screen 
+    and (max-width: 1030px), (max-width: 1000px) and (orientation: portrait) {
+        
+        .nav-btn {
+            left: 2.5%;
+            top: 2%;
+            
+            &:hover .top {
+                width: 100%;
+            }
+    
+            &:hover .mid {
+                width: 100%;
+            }
+        }
+        
+        .btn-down {
+            display: none;
+        }
+
+        .nav ul img {
+            padding-bottom: 1em;
+        }
+        
+        .intro {
+            padding-top: 25%;
+            width: 100%;
+            height: 50%;
+            padding-right: 1em;
+            
+            .intro-heading {
+                font-size: 2rem;
+            }
+            
+            .intro-description {
+                font-size: 1.5rem;
+            }
+        }
+
+        .portrait {
+            width: 100%;
+            height: 50%; 
+            
+            img {
+                width: 55%;
+                bottom: 0;
+            }
+        }
+        
+        #skillSect {
+            max-height: 85%;
+            min-height: 50%;
+        }
+        
+        .skills {
+            svg {
+                max-width: 90%;
+            }
+        }
+        
+        
+        // work area -------------------------------------
+        
+        .page-work {
+            margin: 12% auto; 
+            width: 90%;
+        }
+        
+        .work {
+            padding: 5% 5% 2% 5%;
+            
+            img {
+                max-width: 100%;
+            }
+
+            .work-heading {
+                font-size: 2rem;
+                margin-top: 5%;
+                margin-bottom: 2%;
+            }
+
+            .work-description {
+                font-size: 1.25rem;
+                
+                * {
+                    font-size: 1.25rem;
+                }
+            }
+            
+            .work-link { 
+                margin: 5% 0; 
+            }
+        }
+        
+        .footer {
+            
+            .footer-img {
+                width: 25%;
+            }
+            
+            p {
+                margin: 10% auto;
+            }
+            
+        }
+}
+
+
+// landscape ------------------------------------
+
+@media only screen and (max-width: 1030px) and (orientation: landscape) {
+
+        .nav ul img {
+            padding-bottom: 0.5em;
+        }
+    
+        .nav ul li, .nav ul li a {
+            font-size: 3.25rem;
+        }
+    
+        .intro {
+            padding-top: 15%;
+            width: 70%;
+            height: 100%;
+            
+            .intro-heading {
+                font-size: 2rem;
+            }
+            
+            .intro-description {
+                font-size: 1.5rem;
+            }
+        }
+
+        .portrait {
+            width: 30%;
+            height: 100%;
+            
+            img {
+                width: 100%;
+                position: absolute;
+                float: none;
+                right: 5%;
+                bottom: 5%;
+            }
+        }
+        
+    
+        .skills {
+            
+            svg {
+                max-width: 50%;   
+            }
+        }
+    
+        .page-work {
+            margin-top: 10%;
+        }
+        
+    
+        .footer {
+            
+            .footer-img {
+                width: 15%;
+            }
+            
+            p {
+                margin: 7.5% auto;
+            }
+            
+        }
+}
+
+
+//Phone-------------------------------------------------------------
+
+@media screen and (max-width: 500px) {
+    
+    // nav button
+
+.nav-btn {
+    top: 0%;
+    left: -2%;
+    @include transform(scale(0.6));
+}
+    
+    .nav {
+        height: 110vh;
+    }
+    
+    .nav ul img {
+        padding-bottom: 0em !important;
+        width: 6rem;
+    }
+    
+    .nav ul li, .nav ul li a {
+        font-size: 2.5rem;
+        margin: 5% auto;
+        width: 90%;
+        padding: 0.5em;
+        border-top: 0.02em solid rgba($white, 0.15);
+        
+        &:first-of-type {
+            border-top: none;
+        }
+    }
+    
+    .nav ul li a {
+        margin: 0 auto;
+        padding: 0;
+    }
+    
+    .intro {
+        padding-right: 1em;
+        padding-top: 30%;
+        
+        .intro-heading {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .intro-description {
+            font-size: 1.3rem;
+            
+            * {
+                font-size: 1.3rem;
+            }
+            
+            span {
+                font-size: 0.8rem;
+            }
+        }
+    }
+    
+    .portrait {
+            img {
+                width: 60%;
+                position: absolute;
+                bottom: 5%;
+            }
+        }
+    
+    #skillSect {
+        max-height: 85%;
+    }
+        
+        
+    .skills {
+            svg {
+                max-width: 90%;   
+            }
+        }
+    
+    // work area --------------------------------
+    
+    .page-work {
+        margin-top: 17%;
+    }
+    
+    .work {
+        width: 95%;
+        padding: 5% 5%;
+        
+        .work-item {
+            margin-top: 25%;
+            
+            &:nth-of-type(1) {
+                margin-top: 15%;
+            }
+        }
+        
+        .slide-in-work-item {
+            margin-top: 10%;
+            
+            &:first-of-type {
+                margin-top: 0%;
+            }
+        }
+
+        img {
+            width: 100%;
+            box-shadow: 0em 0.25em 1em rgba($shadow-color, 0.75);
+            margin: 7.5% auto;
+            -webkit-tap-higtlight-color: rgba($shadow-color, 0.5);
+        }
+
+        .work-heading {
+            font-size: 1.5rem;
+        }
+
+        .work-description {
+            font-size: 1rem;
+            line-height: 1.6rem;
+            
+            * {
+                font-size: 1rem;
+            }
+            
+            h1, h2, h3, h4, h5, h6 {
+                padding: 0.4 0; 
+            }
+        }
+        
+        .work-link a {
+            font-size: 0.8rem;
+        }
+    }
+  
+    .footer {
+        padding: 2em;
+        margin-top: 10%;
+    
+        .back-top-wrapper {
+            top: -1.5rem;
+        }
+        
+        .back-top {
+            width: 3rem;
+            padding: 0.5em;
+        }
+
+
+        .footer-img {
+            margin: 7.5% auto;
+            width: 25%;
+        }
+
+        p, p a {
+            width: 100%;
+            font-size: 1rem !important;
+            margin: 10% 0!important;
+        }
+        
+        .cv a {
+            font-size: 0.9rem;
+        }
+
+        .copy {
+            font-size: 0.8rem !important;
+        }
+        
+    }
+    
+    
+    
+    
+}
+
+// smaller smart phones
+
+@media screen and (min-width: 280px) and (max-width: 330px) {
+    
+    .nav ul img {
+        padding-bottom: 0em;
+        width: 20%;
+    }
+    
+    .nav ul li, .nav ul li a {
+        font-size: 2rem;
+    }
+    
+    .intro {
+        padding-top: 25%;
+        
+        .intro-description {
+            font-size: 1.2rem;
+            
+            * {
+                font-size: 1.2rem;
+            }
+        }
+    }
+    
+    .portrait img {
+        width: 50%;
+    }
+    
+    .footer {
+        margin-top: 15%;
+    }
+    
+    
+    .page-work {
+        margin-top: 25%;
+    } 
+
+    
+}
+    
+
+
+@media screen and (min-width: 2000px) {
+    
+    :root {
+        font-size: 24px;
+    }
+}
+
+
+@media screen and (min-height: 2000px) and (min-resolution: 170dpi) and (orientation: portrait) {
+    
+    :root {
+        font-size: 30px;
+    }
+    
+    .nav-btn {
+        left: 2.5%;
+        top: 2%;
+    }
+    
+    .page-work {
+        margin-top: 10%;
+    }
+    
+    .nav ul img {
+        margin-bottom: 0.75em;
+    }
+    
+    .intro {
+        padding-top: 25%;
+        width: 100%;
+        height: 50%;
+    }
+    
+    .portrait {
+        width: 100%;
+        height: 50%;
+        
+        img {
+            width: 65%;
+            bottom: 10%;
+        }
+        
+    }
+    
+    #skillSect {
+        min-height: auto;
+        max-height: 75%;
+    }
+    
+    .skills svg {
+        max-width: 90%;
+    }
+    
+    .footer p {
+        margin: 2em 0;
+    }
+}
+
+@media screen and (min-width: 3700px) {
+    
+    :root {
+        font-size: 35px;
+    }
+    
+    .skills {
+
+    svg {
+        margin: auto 0;
+        width: 80%;
+        height: 75%;
+    }
+}
+}
+
+
+.nav-btn-hide {
+    @include transform(scale(0));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
